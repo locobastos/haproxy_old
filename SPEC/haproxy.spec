@@ -4,6 +4,8 @@
 %define haproxy_confdir %{_sysconfdir}/haproxy
 %define haproxy_datadir %{_datadir}/haproxy
 
+%define lua_version     5.4.3
+
 %global _hardened_build 1
 %global _enable_debug_package 0
 %global debug_package %{nil}
@@ -12,12 +14,14 @@
 Name:             haproxy
 Version:          2.3.10
 Release:          1%{?dist}
+
 Summary:          HAProxy reverse proxy for high availability environments
 
-Group:            System Environment/Daemons
+Vendor:           HAProxy Technologies, LLC
 License:          GPLv2+
-
 URL:              http://www.haproxy.org/
+Packager:         Bastien MARTIN (https://github.com/locobastos/haproxy)
+
 Source0:          http://www.haproxy.org/download/2.3/src/haproxy-%{version}.tar.gz
 Source1:          %{name}.service
 Source2:          %{name}.cfg
@@ -53,7 +57,19 @@ availability environments. Indeed, it can:
    intercepted from the application
 
 %prep
+if [ -d /opt/lua ]
+then
+	rm -rf /opt/lua
+fi
+cd /opt/
+curl --remote-name http://www.lua.org/ftp/lua-%{lua_version}.tar.gz
+tar zxf lua-%{lua_version}.tar.gz
+mv /opt/lua-%{lua_version} /opt/lua
+cd /opt/lua/src
+sed -i '/^CFLAGS/ s/$/ -fPIC/' Makefile
+make
 %setup -q
+
 
 %build
 regparm_opts=
@@ -61,7 +77,7 @@ regparm_opts=
 regparm_opts="USE_REGPARM=1"
 %endif
 
-%{__make} %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PCRE2=1 USE_ZLIB=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 ${regparm_opts} ADDINC="%{optflags}" ADDLIB="%{__global_ldflags}" EXTRA_OBJS="" LUA_INC=/opt/lua-5.4.3/src LUA_LIB=/opt/lua-5.4.3/src
+%{__make} %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PCRE2=1 USE_ZLIB=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 ${regparm_opts} ADDINC="%{optflags}" ADDLIB="%{__global_ldflags}" EXTRA_OBJS="" LUA_INC=/opt/lua/src LUA_LIB=/opt/lua/src
 
 pushd contrib/halog
 %{__make} ${halog} OPTIMIZE="%{optflags} %{build_ldflags}"
