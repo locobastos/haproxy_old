@@ -11,7 +11,7 @@
 
 Name:             haproxy
 Version:          2.3.12
-Release:          1%{?dist}
+Release:          2%{?dist}
 
 Summary:          HAProxy reverse proxy for high availability environments
 
