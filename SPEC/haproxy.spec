@@ -65,11 +65,9 @@ regparm_opts="USE_REGPARM=1"
 
 %{__make} %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PCRE2=1 USE_ZLIB=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 ${regparm_opts} ADDINC="%{optflags}" ADDLIB="%{__global_ldflags}" EXTRA_OBJS="" LUA_INC=%{_lua_bin} LUA_LIB=%{_lua_bin}
 
-pushd contrib/halog
-%{__make} ${halog} OPTIMIZE="%{optflags} %{build_ldflags}"
-popd
+%{__make} admin/halog/halog
 
-pushd contrib/iprange
+pushd admin/iprange
 %{__make} iprange OPTIMIZE="%{optflags} %{build_ldflags}"
 popd
 
@@ -85,8 +83,8 @@ popd
 %{__install} -d -m 0755 %{buildroot}%{haproxy_homedir}
 %{__install} -d -m 0755 %{buildroot}%{haproxy_datadir}
 %{__install} -d -m 0755 %{buildroot}%{_bindir}
-%{__install} -p -m 0755 ./contrib/halog/halog %{buildroot}%{_bindir}/halog
-%{__install} -p -m 0755 ./contrib/iprange/iprange %{buildroot}%{_bindir}/iprange
+%{__install} -p -m 0755 ./admin/halog/halog %{buildroot}%{_bindir}/halog
+%{__install} -p -m 0755 ./admin/iprange/iprange %{buildroot}%{_bindir}/iprange
 %{__install} -p -m 0644 ./examples/errorfiles/* %{buildroot}%{haproxy_datadir}
 
 for httpfile in $(find ./examples/errorfiles/ -type f)
