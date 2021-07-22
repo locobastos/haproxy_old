@@ -36,6 +36,6 @@ spectool --get-files ~/haproxy/SPEC/haproxy.spec --directory ~/rpmbuild/SOURCES/
 cp ~/haproxy/SOURCES/ha* ~/rpmbuild/SOURCES/
 yum install -y $(rpmspec --parse ~/haproxy/SPEC/haproxy.spec | grep BuildRequires | sed 's/\\ *//g' | cut -d':' -f2)
 rpmbuild --define "_lua_bin /opt/lua-5.4.3/src" -ba ~/haproxy/SPEC/haproxy.spec
-cp ~/rpmbuild/RPMS/x86_64/haproxy-2.3.12-1.el7.x86_64.rpm ~/
-cp ~/rpmbuild/SRPMS/haproxy-2.3.12-1.el7.src.rpm ~/
+cp ~/rpmbuild/RPMS/x86_64/haproxy-2.3.12-2.el7.x86_64.rpm ~/
+cp ~/rpmbuild/SRPMS/haproxy-2.3.12-2.el7.src.rpm ~/
 ```
