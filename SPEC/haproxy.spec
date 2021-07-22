@@ -10,8 +10,8 @@
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 
 Name:             haproxy
-Version:          2.3.12
-Release:          2%{?dist}
+Version:          2.4.2
+Release:          1%{?dist}
 
 Summary:          HAProxy reverse proxy for high availability environments
 
@@ -20,7 +20,7 @@ License:          GPLv2+
 URL:              http://www.haproxy.org/
 Packager:         Bastien MARTIN (https://github.com/locobastos/haproxy)
 
-Source0:          http://www.haproxy.org/download/2.3/src/haproxy-%{version}.tar.gz
+Source0:          http://www.haproxy.org/download/2.4/src/haproxy-%{version}.tar.gz
 Source1:          %{name}.service
 Source2:          %{name}.cfg
 Source3:          %{name}.logrotate
