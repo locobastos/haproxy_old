@@ -10,7 +10,7 @@
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 
 Name:             haproxy
-Version:          2.4.2
+Version:          2.4.3
 Release:          1%{?dist}
 
 Summary:          HAProxy reverse proxy for high availability environments
@@ -110,6 +110,20 @@ exit 0
 
 %post
 %systemd_post %{name}.service
+echo ""
+echo ""
+echo -e "\e[1;31m ==============================================================================\e[0m"
+echo -e "\e[1;31m  WARNING: This HAProxy RPM is not an official one. \e[0m"
+echo ""
+echo -e "\e[1;31m  To report bug fully related to HAProxy, please use their GitHub page:\e[0m"
+echo -e "\e[1;31m        https://github.com/haproxy/haproxy/issues\e[0m"
+echo ""
+echo -e "\e[1;31m  To report bug related to this RPM itself or the files inside "SOURCES" folder,\e[0m"
+echo -e "\e[1;31m  please use my GitHub page: https://github.com/locobastos/haproxy/issues\e[0m"
+echo -e "\e[1;31m ==============================================================================\e[0m"
+echo ""
+echo ""
+
 
 %preun
 %systemd_preun %{name}.service
