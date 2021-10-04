@@ -1,6 +1,6 @@
-# HAProxy 2.4.3 for CentOS 7
+# HAProxy 2.4.7 for CentOS 7
 
-This repository contains necessary build files of HAProxy 2.4.3 with no support and no expectation of stability. The recommended way of using the repository is to build and test your own packages.
+This repository contains necessary build files of HAProxy 2.4.7 with no support and no expectation of stability. The recommended way of using the repository is to build and test your own packages.
 
 This repository fills my needs. I am not expecting to handle all CentOS environments.
 
@@ -14,7 +14,7 @@ yum install -y gcc git rpm-build rpmdevtools
 
 Then you have to build LUA but not by following the official way (As it is explained on the official website: http://www.lua.org/download.html)
 
-NOTE: To build HAProxy 2.4.3, you will need LUA >= 5.3. On the officials CentOS 7 repositories, the latest version is 5.1.4. It is why we need to do this:
+NOTE: To build HAProxy 2.4.7, you will need LUA >= 5.3. On the officials CentOS 7 repositories, the latest version is 5.1.4. It is why we need to do this:
 
 ```
 cd /opt/
