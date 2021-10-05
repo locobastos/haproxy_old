@@ -1,0 +1,15 @@
+name: Build CentOS 7 RPM
+
+on:
+  push:
+    tags:
+    - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: CentOS 7 Build
+        uses: blackone-sudo/build-rpm@v1
+        with:
+          spec_file: SPEC/haproxy.spec
