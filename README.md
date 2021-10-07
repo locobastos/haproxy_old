@@ -6,10 +6,10 @@ This repository fills my needs. I am not expecting to handle all CentOS environm
 
 ## Prerequisites
 
-From a CentOS 7 server with EPEL repositories installed, you have to install some packages:
+On a CentOS 7 server, you have to install some packages:
 
 ```bash
-yum install -y gcc git rpm-build rpmdevtools
+yum install -y gcc git rpm-build rpmdevtools epel-release
 ```
 
 Then you have to build LUA but not by following the official way (As it is explained on the official website: http://www.lua.org/download.html)
