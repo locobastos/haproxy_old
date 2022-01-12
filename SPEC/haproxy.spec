@@ -10,7 +10,7 @@
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 
 Name:             haproxy
-Version:          2.4.8
+Version:          2.4.9
 Release:          1%{?dist}
 
 Summary:          HAProxy reverse proxy for high availability environments
