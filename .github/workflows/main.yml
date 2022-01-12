@@ -9,7 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: CentOS 7 Build
-        uses: blackone-sudo/build-rpm@v1
-        with:
-          spec_file: SPEC/haproxy.spec
+    - uses: actions/checkout@v2
+    - name: CentOS 7 Build
+      id: rpm
+      uses: naveenrajm7/rpmbuild@master
+      with:
+        spec_file: SPEC/haproxy.spec
