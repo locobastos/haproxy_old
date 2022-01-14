@@ -22,7 +22,7 @@ git clone https://github.com/locobastos/haproxy
 cd haproxy
 spectool -g -C SOURCES SPEC/haproxy.spec
 yum-builddep -y SPECS/haproxy.spec
-rpmbuild -ba SPECS/haproxy.spec --define "_topdir $(pwd)"
-cp ~/rpmbuild/RPMS/x86_64/haproxy-*.rpm ~/
-cp ~/rpmbuild/SRPMS/haproxy-*.rpm ~/
+rpmbuild -ba SPEC/haproxy.spec --define "_topdir $(pwd)"
+cp RPMS/x86_64/haproxy-*.rpm ~/
+cp SRPMS/haproxy-*.rpm ~/
 ```
