@@ -10,7 +10,7 @@
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 
 Name:             haproxy
-Version:          2.4.9
+Version:          2.4.10
 Release:          1%{?dist}
 
 Summary:          HAProxy reverse proxy for high availability environments
@@ -26,6 +26,7 @@ Source2:          %{name}.cfg
 Source3:          %{name}.logrotate
 Source4:          %{name}.sysconfig
 Source5:          halog.1
+Source6:          http://www.lua.org/ftp/lua-5.4.3.tar.gz
 
 BuildRequires:    epel-rpm-macros
 BuildRequires:    openssl-devel
@@ -33,6 +34,7 @@ BuildRequires:    pcre2-devel
 BuildRequires:    systemd-devel
 BuildRequires:    systemd-units
 BuildRequires:    zlib-devel
+BuildRequires:    gcc
 
 Requires(pre):    shadow-utils
 Requires(post):   systemd
@@ -54,7 +56,7 @@ availability environments. Indeed, it can:
    intercepted from the application
 
 %prep
-%setup -q
+%setup -q -b 6
 
 
 %build
@@ -63,7 +65,15 @@ regparm_opts=
 regparm_opts="USE_REGPARM=1"
 %endif
 
-%{__make} %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PCRE2=1 USE_ZLIB=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 ${regparm_opts} ADDINC="%{optflags}" ADDLIB="%{__global_ldflags}" EXTRA_OBJS="" LUA_INC=%{_lua_bin} LUA_LIB=%{_lua_bin}
+buiddir=$(pwd)
+luadir=$(ls ../ | grep lua-.*)
+cd  ../$luadir/src
+sed -i '/^CFLAGS/ s/$/ -fPIC/' Makefile
+%{__make}
+
+cd $buiddir
+
+%{__make} %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PCRE2=1 USE_ZLIB=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 ${regparm_opts} ADDINC="%{optflags}" ADDLIB="%{__global_ldflags}" EXTRA_OBJS="" LUA_INC=../$luadir/src LUA_LIB=../$luadir/src
 
 %{__make} admin/halog/halog
 
@@ -149,3 +159,7 @@ echo ""
 %{_bindir}/iprange
 %{_mandir}/man1/*
 %attr(-,%{haproxy_user},%{haproxy_group}) %dir %{haproxy_homedir}
+
+%changelog
+* Fri Jan 14 2022 dcfSec <contributor@dcfsec.com> 2.4.10-1
+Includes lua make into spec
