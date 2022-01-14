@@ -9,7 +9,7 @@ This repository fills my needs. I am not expecting to handle all CentOS environm
 From a clean and minimal CentOS 7 server, you have to install some packages:
 
 ```bash
-yum update -y && yum install -y epel-release gcc git rpm-build rpmdevtools
+yum update -y && yum install -y epel-release gcc make git rpm-build rpmdevtools
 ```
 
 ## Build HAProxy
