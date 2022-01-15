@@ -10,7 +10,7 @@
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 
 Name:             haproxy
-Version:          2.4.10
+Version:          2.4.12
 Release:          1%{?dist}
 
 Summary:          HAProxy reverse proxy for high availability environments
@@ -163,5 +163,9 @@ echo ""
 %attr(-,%{haproxy_user},%{haproxy_group}) %dir %{haproxy_homedir}
 
 %changelog
+* Sat Jan 15 2022 locobastos <bastien.thierry.martin@gmail.com> 2.4.12-1
+Fix github CI
+Update specfile to 2.4.12
+
 * Fri Jan 14 2022 dcfSec <contributor@dcfsec.com> 2.4.10-1
 Includes lua make into spec
