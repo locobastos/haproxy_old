@@ -14,4 +14,4 @@ jobs:
       id: rpm
       uses: locobastos/rpmbuild@master
       with:
-        spec_file: SPEC/haproxy.spec
+        spec_file: SPECS/haproxy.spec
