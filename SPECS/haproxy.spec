@@ -57,8 +57,8 @@ availability environments. Indeed, it can:
    intercepted from the application
 
 %prep
-%setup -b 0
-%setup -b 6
+%setup -q -b 0
+%setup -q -b 6
 
 
 %build
