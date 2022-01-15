@@ -12,6 +12,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: CentOS 7 Build
       id: rpm
-      uses: naveenrajm7/rpmbuild@master
+      uses: locobastos/rpmbuild@master
       with:
         spec_file: SPEC/haproxy.spec
