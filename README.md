@@ -1,6 +1,6 @@
-# HAProxy 2.4.10 for CentOS 7
+# HAProxy 2.4.12 for CentOS 7
 
-This repository contains necessary build files of HAProxy 2.4.10 with no support and no expectation of stability. The recommended way of using the repository is to build and test your own packages.
+This repository contains necessary build files of HAProxy 2.4.12 with no support and no expectation of stability. The recommended way of using the repository is to build and test your own packages.
 
 This repository fills my needs. I am not expecting to handle all CentOS environments.
 
