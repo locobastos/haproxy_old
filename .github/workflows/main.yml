@@ -9,9 +9,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Tag name
+      id: tag_name
+      run: echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+
     - name: CentOS 7 Build
+      uses: actions/checkout@v2
       id: rpm
       uses: locobastos/rpmbuild@locobastos_haproxy
       with:
         spec_file: SPECS/haproxy.spec
+
+    - name: Create Draft Release
+      uses: actions/create-release@v1
+      id: create_release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.tag_name.outputs.SOURCE_TAG }}
+        release_name: "HAProxy ${{ steps.tag_name.outputs.SOURCE_TAG }}-1 CentOS 7"
+        draft: true
+        prerelease: false
