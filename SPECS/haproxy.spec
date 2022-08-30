@@ -10,7 +10,7 @@
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 
 Name:             haproxy
-Version:          2.4.12
+Version:          2.4.13
 Release:          1%{?dist}
 
 Summary:          HAProxy reverse proxy for high availability environments
@@ -26,7 +26,7 @@ Source2:          %{name}.cfg
 Source3:          %{name}.logrotate
 Source4:          %{name}.sysconfig
 Source5:          halog.1
-Source6:          http://www.lua.org/ftp/lua-5.4.3.tar.gz
+Source6:          http://www.lua.org/ftp/lua-5.4.4.tar.gz
 
 BuildRequires:    epel-rpm-macros
 BuildRequires:    openssl-devel
@@ -163,6 +163,10 @@ echo ""
 %attr(-,%{haproxy_user},%{haproxy_group}) %dir %{haproxy_homedir}
 
 %changelog
+* Tue Aug 30 2022 locobastos <bastien.thierry.martin@gmail.com> 2.4.13-1
+Update LUA to 5.4.4
+Update specfile to 2.4.13
+
 * Sat Jan 15 2022 locobastos <bastien.thierry.martin@gmail.com> 2.4.12-1
 Fix github CI
 Update specfile to 2.4.12
