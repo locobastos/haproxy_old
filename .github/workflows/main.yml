@@ -22,22 +22,13 @@ jobs:
       with:
         spec_file: SPECS/haproxy.spec
 
-    - name: Create Draft Release
-      uses: actions/create-release@v1
-      id: create_release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.tag_name.outputs.SOURCE_TAG }}
-        release_name: "HAProxy ${{ steps.tag_name.outputs.SOURCE_TAG }}-1 CentOS 7"
-        draft: true
-        prerelease: false
-
     - name: Upload RPMs
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
+        name: "HAProxy ${{ steps.tag_name.outputs.SOURCE_TAG }}-1 CentOS 7"
+        tag_name: ${{ steps.tag_name.outputs.SOURCE_TAG }}
         files: |
-          /github/home/rpmbuild/SRPMS/*.src.rpm
-          /github/home/rpmbuild/RPMS/x86_64/*.x86_64.rpm
+          rpmbuild/SRPMS/haproxy-${{ steps.tag_name.outputs.SOURCE_TAG }}-1.el7.src.rpm
+          rpmbuild/RPMS/x86_64/haproxy-${{ steps.tag_name.outputs.SOURCE_TAG }}-1.el7.x86_64.rpm
