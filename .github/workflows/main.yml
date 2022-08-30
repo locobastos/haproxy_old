@@ -1,5 +1,4 @@
 ---
-
 name: Build CentOS 7 RPM
 
 on:
@@ -33,3 +32,12 @@ jobs:
         release_name: "HAProxy ${{ steps.tag_name.outputs.SOURCE_TAG }}-1 CentOS 7"
         draft: true
         prerelease: false
+
+    - name: Upload RPMs
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: |
+          /github/home/rpmbuild/SRPMS/*.src.rpm
+          /github/home/rpmbuild/RPMS/x86_64/*.x86_64.rpm
