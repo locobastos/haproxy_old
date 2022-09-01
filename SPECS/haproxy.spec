@@ -20,7 +20,7 @@ License:          GPLv2+
 URL:              http://www.haproxy.org/
 Packager:         Bastien MARTIN (https://github.com/locobastos/haproxy)
 
-Source0:          http://www.haproxy.org/download/2.4/src/haproxy-%{version}.tar.gz
+Source0:          http://www.haproxy.org/download/2.5/src/haproxy-%{version}.tar.gz
 Source1:          %{name}.service
 Source2:          %{name}.cfg
 Source3:          %{name}.logrotate
