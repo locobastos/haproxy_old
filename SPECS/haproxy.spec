@@ -10,7 +10,7 @@
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 
 Name:             haproxy
-Version:          2.4.16
+Version:          2.4.18
 Release:          1%{?dist}
 
 Summary:          HAProxy reverse proxy for high availability environments
@@ -163,6 +163,9 @@ echo ""
 %attr(-,%{haproxy_user},%{haproxy_group}) %dir %{haproxy_homedir}
 
 %changelog
+* Thu Sep 1 2022 locobastos <bastien.thierry.martin@gmail.com> 2.4.18-1
+Update specfile to 2.4.18
+
 * Tue Aug 30 2022 locobastos <bastien.thierry.martin@gmail.com> 2.4.16-1
 Update specfile to 2.4.16
 
