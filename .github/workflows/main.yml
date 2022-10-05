@@ -17,7 +17,7 @@ jobs:
       run: echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
 
     - name: CentOS 7 Build
-      id: rpm
+      id: rpm_el7
       uses: locobastos/rpmbuild@locobastos_haproxy
       with:
         spec_file: SPECS/haproxy.spec
@@ -34,7 +34,7 @@ jobs:
           rpmbuild/RPMS/x86_64/haproxy-${{ steps.tag_name.outputs.SOURCE_TAG }}-1.el7.x86_64.rpm
 
     - name: AlmaLinux 8 Build
-      id: rpm
+      id: rpm_el8
       uses: locobastos/rpmbuild@locobastos_haproxy_al8
       with:
         spec_file: SPECS/haproxy.spec
