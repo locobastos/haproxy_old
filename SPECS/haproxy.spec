@@ -10,7 +10,7 @@
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 
 Name:             haproxy
-Version:          2.4.18
+Version:          2.4.19
 Release:          1%{?dist}
 
 Summary:          HAProxy reverse proxy for high availability environments
@@ -45,21 +45,20 @@ Requires(postun): systemd
 %description
 HAProxy is a TCP/HTTP reverse proxy which is particularly suited for high
 availability environments. Indeed, it can:
- - route HTTP requests depending on statically assigned cookies
- - spread load among several servers while assuring server persistence
-   through the use of HTTP cookies
- - switch to backup servers in the event a main one fails
- - accept connections to special ports dedicated to service monitoring
- - stop accepting connections without breaking existing ones
- - add, modify, and delete HTTP headers in both directions
- - block requests matching particular patterns
- - report detailed status to authenticated users from a URI
-   intercepted from the application
+  - route HTTP requests depending on statically assigned cookies
+  - spread load among several servers while assuring server persistence
+    through the use of HTTP cookies
+  - switch to backup servers in the event a main one fails
+  - accept connections to special ports dedicated to service monitoring
+  - stop accepting connections without breaking existing ones
+  - add, modify, and delete HTTP headers in both directions
+  - block requests matching particular patterns
+  - report detailed status to authenticated users from a URI
+    intercepted from the application
 
 %prep
 %setup -q -b 0
 %setup -q -b 6
-
 
 %build
 regparm_opts=
@@ -69,13 +68,13 @@ regparm_opts="USE_REGPARM=1"
 
 buiddir=$(pwd)
 luadir=$(ls ../ | grep lua-.*)
-cd  ../$luadir/src
+cd ../$luadir/src
 sed -i '/^CFLAGS/ s/$/ -fPIC/' Makefile
 %{__make}
 
 cd $buiddir
 
-%{__make} %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PCRE2=1 USE_ZLIB=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 ${regparm_opts} ADDINC="%{optflags}" ADDLIB="%{__global_ldflags}" EXTRA_OBJS="" LUA_INC=../$luadir/src LUA_LIB=../$luadir/src
+%{__make} %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PROMEX=1 USE_PCRE2=1 USE_ZLIB=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 ${regparm_opts} ADDINC="%{optflags}" ADDLIB="%{__global_ldflags}" EXTRA_OBJS="" LUA_INC=../$luadir/src LUA_LIB=../$luadir/src
 
 %{__make} admin/halog/halog
 
@@ -163,6 +162,10 @@ echo ""
 %attr(-,%{haproxy_user},%{haproxy_group}) %dir %{haproxy_homedir}
 
 %changelog
+* Wed Oct 5 2022 locobastos <bastien.thierry.martin@gmail.com> 2.4.19-1
+Add build parameter to use Promotheus (USE_PROMEX=1)
+Update specfile to 2.4.19
+
 * Thu Sep 1 2022 locobastos <bastien.thierry.martin@gmail.com> 2.4.18-1
 Update specfile to 2.4.18
 
