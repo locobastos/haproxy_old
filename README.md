@@ -1,28 +1,9 @@
-# HAProxy 2.4.12 for CentOS 7
+# HAProxy for CentOS 7 and AlmaLinux 8
 
-This repository contains necessary build files of HAProxy 2.4.12 with no support and no expectation of stability. The recommended way of using the repository is to build and test your own packages.
+This repository contains necessary build files of HAProxy with no support and no expectation of stability.
+The recommended way of using the repository is to build and test your own packages.
 
-This repository fills my needs. I am not expecting to handle all CentOS environments.
+This repository fills my needs. I am not expecting to handle all CentOS environments and all HAProxy features.
 
-## Prerequisites
-
-From a clean and minimal CentOS 7 server, you have to install some packages:
-
-```bash
-yum update -y && yum install -y git rpmdevtools epel-release
-```
-
-## Build HAProxy
-
-Now your environment is ready, let's build HAProxy:
-
-```bash
-cd ~
-git clone https://github.com/locobastos/haproxy
-cd haproxy
-spectool -g -C SOURCES SPECS/haproxy.spec
-yum-builddep -y SPECS/haproxy.spec
-rpmbuild -ba SPECS/haproxy.spec --define "_topdir $(pwd)"
-cp RPMS/x86_64/haproxy-*.rpm ~/
-cp SRPMS/haproxy-*.rpm ~/
-```
+The "main" branch is my labs, it's mostly where I try GitHub Actions.
+Branches "2.4", "2.5", "2.6" and so on, are real branches where RPM are built and pushed (manually) in my internal and private Linux repositories.
