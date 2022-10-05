@@ -1,3 +1,4 @@
+---
 name: Build CentOS 7 RPM
 
 on:
@@ -10,8 +11,41 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
+    - name: Tag name
+      id: tag_name
+      run: echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+
     - name: CentOS 7 Build
       id: rpm
       uses: locobastos/rpmbuild@locobastos_haproxy
       with:
         spec_file: SPECS/haproxy.spec
+
+    - name: Upload RPMs
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        name: "HAProxy ${{ steps.tag_name.outputs.SOURCE_TAG }}-1 CentOS 7"
+        tag_name: ${{ steps.tag_name.outputs.SOURCE_TAG }}
+        files: |
+          rpmbuild/SRPMS/haproxy-${{ steps.tag_name.outputs.SOURCE_TAG }}-1.el7.src.rpm
+          rpmbuild/RPMS/x86_64/haproxy-${{ steps.tag_name.outputs.SOURCE_TAG }}-1.el7.x86_64.rpm
+
+    - name: AlmaLinux 8 Build
+      id: rpm
+      uses: locobastos/rpmbuild@locobastos_haproxy_al8
+      with:
+        spec_file: SPECS/haproxy.spec
+
+    - name: Upload RPMs
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        name: "HAProxy ${{ steps.tag_name.outputs.SOURCE_TAG }}-1 AlmaLinux 8"
+        tag_name: ${{ steps.tag_name.outputs.SOURCE_TAG }}
+        files: |
+          rpmbuild/SRPMS/haproxy-${{ steps.tag_name.outputs.SOURCE_TAG }}-1.el8.src.rpm
+          rpmbuild/RPMS/x86_64/haproxy-${{ steps.tag_name.outputs.SOURCE_TAG }}-1.el8.x86_64.rpm
