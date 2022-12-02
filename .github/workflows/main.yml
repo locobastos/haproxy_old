@@ -1,5 +1,5 @@
 ---
-name: Build CentOS 7 RPM
+name: Build RPM
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
       id: rpm_el7
       uses: locobastos/rpmbuild@locobastos_haproxy
       with:
-        spec_file: SPECS/haproxy.spec
+        spec_file: haproxy.spec
 
     - name: Upload RPMs
       uses: softprops/action-gh-release@v1
@@ -37,7 +37,7 @@ jobs:
       id: rpm_el8
       uses: locobastos/rpmbuild@locobastos_haproxy_al8
       with:
-        spec_file: SPECS/haproxy.spec
+        spec_file: haproxy.spec
 
     - name: Upload RPMs
       uses: softprops/action-gh-release@v1
